@@ -1,18 +1,31 @@
 /// <reference types="cypress"/>
+import produtosPage from "../../support/page-objects/produtos.page";
 
 describe('Funcionalidade: Produtos', () => {
     
     beforeEach(() => {
-        cy.visit('produtos')
+        produtosPage.visitarUrl()
         
     });
     
     it('Deve selecionar um produto da lista', () => {
-        //cy.get('.product-block').first().click() Vai abrir o primeiro produto
-        //cy.get('.product-block').last().click() Vai abrir o último produto
-        //cy.get('.product-block').eq(1).click() Vai abrir o produto que eu quiser conforme a sua posição (0,1,2,...)
-        cy.get('.product-block').contains('Apollo Running Short').click()
+        produtosPage.buscarProdutoLista('Aether Gym Pant')
         cy.get('#tab-title-description > a').should('contain', 'Descrição')
+        
+    });
+
+    it('Deve buscar um produto com sucesso', () => {
+        let produto = 'Zeppelin Yoga Pant'
+        produtosPage.buscarProduto(produto)
+        cy.get('.product_title').should('contain', produto)
+        
+    });
+
+    it('Deve visitar a página do produto', () => {
+        
+    });
+
+    it('Deve adicionar produto ao carrinho', () => {
         
     });
 });
